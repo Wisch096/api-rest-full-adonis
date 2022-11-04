@@ -43,11 +43,21 @@ export default class MomentsController {
     }
 
     public async show({ params }: HttpContextContract) {
+
         const moment = await Moment.findOrFail(params.id)
 
         return {
             data:moment,
         }
+    }
+
+    public async destroy() {
+        const moment = await Moment.findOrFail(params.id)
+
+        return {
+            data:moment,
+        }
+    }
     }
 
 }
