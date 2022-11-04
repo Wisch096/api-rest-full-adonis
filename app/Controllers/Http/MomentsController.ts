@@ -18,8 +18,10 @@ export default class MomentsController {
            const imageName = `${uuidv4()}.${image.extname}`
 
            image.move(Application.tmpPath('uploads'), {
-            name
+            name: imageName
            })
+
+           body.image = imageName
         }
 
         const moment = await Moment.create(body)
@@ -30,7 +32,22 @@ export default class MomentsController {
             message: 'Momento criado com sucesso!',
             data: moment,
         }
- 
+    }
+
+    public async index() {
+        const moments = await Moment.all()
+
+        return {
+            data: moments,
+        }
+    }
+
+    public async show({ params }: HttpContextContract) {
+        const moment = await Moment.findOrFail(params.id)
+
+        return {
+            data:moment,
+        }
     }
 
 }
